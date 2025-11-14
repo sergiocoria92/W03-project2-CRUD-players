@@ -1,0 +1,176 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CSE341 W03 Players API",
+    "version": "1.0.0",
+    "description": "API para gestionar jugadores (W03 Project 2)."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/players": {
+      "get": {
+        "summary": "Obtener todos los jugadores",
+        "responses": {
+          "200": {
+            "description": "Lista de jugadores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Player"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo jugador",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Player"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Jugador creado"
+          }
+        }
+      }
+    },
+    "/players/{id}": {
+      "get": {
+        "summary": "Obtener un jugador por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jugador encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Player"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Jugador no encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un jugador completo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Player"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Jugador actualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un jugador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jugador eliminado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Player": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "Lionel"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Messi"
+          },
+          "sport": {
+            "type": "string",
+            "example": "Soccer"
+          },
+          "team": {
+            "type": "string",
+            "example": "Inter Miami"
+          },
+          "age": {
+            "type": "integer",
+            "example": 37
+          },
+          "rating": {
+            "type": "integer",
+            "example": 95
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "sport",
+          "team",
+          "age",
+          "rating",
+          "isActive"
+        ]
+      }
+    }
+  }
+}
