@@ -7,6 +7,10 @@
   },
   "servers": [
     {
+      "url": "https://w03-project2-crud-players.onrender.com",
+      "description": "Render server"
+    },
+    {
       "url": "http://localhost:8080",
       "description": "Local server"
     }
