@@ -6,7 +6,7 @@ require('dotenv').config();
 const { connectToServer } = require('./db/connect');
 const playersRoutes = require('./routes/players');
 
-// 👉 importa swagger
+// 👉 import swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
 
@@ -17,30 +17,30 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-// 👉 aquí va swagger
+// 👉 swagger goes here
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Rutas principales
+// Main routes
 app.use('/players', playersRoutes);
 
-// Ruta para probar rápido que el server vive
+// Simple route to quickly check if the server is alive
 app.get('/', (req, res) => {
-  res.json({ message: 'API W03 funcionando 🚀' });
+  res.json({ message: 'API W03 running 🚀' });
 });
 
-// Manejo de ruta no encontrada
+// 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Ruta no encontrada' });
+  res.status(404).json({ error: 'Route not found' });
 });
 
-// Conectarse a MongoDB y luego iniciar el servidor
+// Connect to MongoDB and then start the server
 connectToServer((err) => {
   if (err) {
-    console.error('❌ No se pudo conectar a MongoDB:', err);
+    console.error('❌ Could not connect to MongoDB:', err);
     process.exit(1);
   } else {
     app.listen(port, () => {
-      console.log(`🚀 Servidor corriendo en el puerto ${port}`);
+      console.log(`🚀 Server running on port ${port}`);
     });
   }
 });

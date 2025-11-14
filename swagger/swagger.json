@@ -3,21 +3,21 @@
   "info": {
     "title": "CSE341 W03 Players API",
     "version": "1.0.0",
-    "description": "API para gestionar jugadores (W03 Project 2)."
+    "description": "API to manage players (W03 Project 2)."
   },
   "servers": [
     {
       "url": "http://localhost:8080",
-      "description": "Servidor local"
+      "description": "Local server"
     }
   ],
   "paths": {
     "/players": {
       "get": {
-        "summary": "Obtener todos los jugadores",
+        "summary": "Get all players",
         "responses": {
           "200": {
-            "description": "Lista de jugadores",
+            "description": "List of players",
             "content": {
               "application/json": {
                 "schema": {
@@ -32,7 +32,7 @@
         }
       },
       "post": {
-        "summary": "Crear un nuevo jugador",
+        "summary": "Create a new player",
         "requestBody": {
           "required": true,
           "content": {
@@ -45,14 +45,14 @@
         },
         "responses": {
           "201": {
-            "description": "Jugador creado"
+            "description": "Player created"
           }
         }
       }
     },
     "/players/{id}": {
       "get": {
-        "summary": "Obtener un jugador por ID",
+        "summary": "Get a player by ID",
         "parameters": [
           {
             "name": "id",
@@ -65,7 +65,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Jugador encontrado",
+            "description": "Player found",
             "content": {
               "application/json": {
                 "schema": {
@@ -75,12 +75,12 @@
             }
           },
           "404": {
-            "description": "Jugador no encontrado"
+            "description": "Player not found"
           }
         }
       },
       "put": {
-        "summary": "Actualizar un jugador completo",
+        "summary": "Update a player",
         "parameters": [
           {
             "name": "id",
@@ -103,12 +103,12 @@
         },
         "responses": {
           "200": {
-            "description": "Jugador actualizado"
+            "description": "Player updated"
           }
         }
       },
       "delete": {
-        "summary": "Eliminar un jugador",
+        "summary": "Delete a player",
         "parameters": [
           {
             "name": "id",
@@ -121,7 +121,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Jugador eliminado"
+            "description": "Player deleted"
           }
         }
       }

@@ -3,20 +3,20 @@ const express = require('express');
 const router = express.Router();
 const playersController = require('../controllers/players');
 
-// GET: obtener todos los jugadores
+// GET: get all players
 router.get('/', playersController.getAllPlayers);
 
-// GET: obtener un jugador por ID
+// GET: get a player by ID
 router.get('/:id', playersController.getPlayerById);
 
-// POST: crear un jugador
+// POST: create a new player
 router.post('/', playersController.createPlayer);
 
-// PUT: actualizar un jugador
+// PUT: update a player
 router.put('/:id', playersController.updatePlayer);
 
-// DELETE: eliminar un jugador
+// DELETE: delete a player
 router.delete('/:id', playersController.deletePlayer);
 
-// MUY IMPORTANTE: exportar SOLO el router
+// VERY IMPORTANT: export ONLY the router
 module.exports = router;

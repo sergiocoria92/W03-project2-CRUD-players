@@ -2,21 +2,21 @@
 const { ObjectId } = require('mongodb');
 const { getDb } = require('../db/connect');
 
-// ---- Función de validación ----
+// ---- Validation function ----
 function validatePlayer(data) {
   const errors = [];
 
   if (!data.firstName || typeof data.firstName !== 'string') {
-    errors.push('firstName es requerido y debe ser texto.');
+    errors.push('firstName is required and must be a string.');
   }
   if (!data.lastName || typeof data.lastName !== 'string') {
-    errors.push('lastName es requerido y debe ser texto.');
+    errors.push('lastName is required and must be a string.');
   }
   if (!data.sport || typeof data.sport !== 'string') {
-    errors.push('sport es requerido y debe ser texto.');
+    errors.push('sport is required and must be a string.');
   }
   if (!data.team || typeof data.team !== 'string') {
-    errors.push('team es requerido y debe ser texto.');
+    errors.push('team is required and must be a string.');
   }
   if (
     data.age === undefined ||
@@ -24,7 +24,7 @@ function validatePlayer(data) {
     !Number.isInteger(data.age) ||
     data.age <= 0
   ) {
-    errors.push('age es requerido y debe ser un número entero mayor que 0.');
+    errors.push('age is required and must be an integer greater than 0.');
   }
   if (
     data.rating === undefined ||
@@ -32,10 +32,10 @@ function validatePlayer(data) {
     data.rating < 0 ||
     data.rating > 100
   ) {
-    errors.push('rating es requerido y debe ser un número entre 0 y 100.');
+    errors.push('rating is required and must be a number between 0 and 100.');
   }
   if (typeof data.isActive !== 'boolean') {
-    errors.push('isActive es requerido y debe ser true o false (booleano).');
+    errors.push('isActive is required and must be true or false (boolean).');
   }
 
   return errors;
@@ -48,8 +48,8 @@ async function getAllPlayers(req, res) {
     const players = await db.collection('players').find().toArray();
     res.status(200).json(players);
   } catch (err) {
-    console.error('Error en getAllPlayers:', err);
-    res.status(500).json({ error: 'Error al obtener los jugadores.' });
+    console.error('Error in getAllPlayers:', err);
+    res.status(500).json({ error: 'Error while getting players.' });
   }
 }
 
@@ -59,7 +59,7 @@ async function getPlayerById(req, res) {
     const { id } = req.params;
 
     if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ error: 'ID no válido.' });
+      return res.status(400).json({ error: 'Invalid ID.' });
     }
 
     const db = getDb();
@@ -68,13 +68,13 @@ async function getPlayerById(req, res) {
       .findOne({ _id: new ObjectId(id) });
 
     if (!player) {
-      return res.status(404).json({ error: 'Jugador no encontrado.' });
+      return res.status(404).json({ error: 'Player not found.' });
     }
 
     res.status(200).json(player);
   } catch (err) {
-    console.error('Error en getPlayerById:', err);
-    res.status(500).json({ error: 'Error al obtener el jugador.' });
+    console.error('Error in getPlayerById:', err);
+    res.status(500).json({ error: 'Error while getting the player.' });
   }
 }
 
@@ -93,10 +93,10 @@ async function createPlayer(req, res) {
 
     res
       .status(201)
-      .json({ message: 'Jugador creado correctamente.', id: result.insertedId });
+      .json({ message: 'Player created successfully.', id: result.insertedId });
   } catch (err) {
-    console.error('Error en createPlayer:', err);
-    res.status(500).json({ error: 'Error al crear el jugador.' });
+    console.error('Error in createPlayer:', err);
+    res.status(500).json({ error: 'Error while creating the player.' });
   }
 }
 
@@ -106,7 +106,7 @@ async function updatePlayer(req, res) {
     const { id } = req.params;
 
     if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ error: 'ID no válido.' });
+      return res.status(400).json({ error: 'Invalid ID.' });
     }
 
     const playerData = req.body;
@@ -121,13 +121,13 @@ async function updatePlayer(req, res) {
       .updateOne({ _id: new ObjectId(id) }, { $set: playerData });
 
     if (result.matchedCount === 0) {
-      return res.status(404).json({ error: 'Jugador no encontrado.' });
+      return res.status(404).json({ error: 'Player not found.' });
     }
 
-    res.status(200).json({ message: 'Jugador actualizado correctamente.' });
+    res.status(200).json({ message: 'Player updated successfully.' });
   } catch (err) {
-    console.error('Error en updatePlayer:', err);
-    res.status(500).json({ error: 'Error al actualizar el jugador.' });
+    console.error('Error in updatePlayer:', err);
+    res.status(500).json({ error: 'Error while updating the player.' });
   }
 }
 
@@ -137,7 +137,7 @@ async function deletePlayer(req, res) {
     const { id } = req.params;
 
     if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ error: 'ID no válido.' });
+      return res.status(400).json({ error: 'Invalid ID.' });
     }
 
     const db = getDb();
@@ -146,13 +146,13 @@ async function deletePlayer(req, res) {
       .deleteOne({ _id: new ObjectId(id) });
 
     if (result.deletedCount === 0) {
-      return res.status(404).json({ error: 'Jugador no encontrado.' });
+      return res.status(404).json({ error: 'Player not found.' });
     }
 
-    res.status(200).json({ message: 'Jugador eliminado correctamente.' });
+    res.status(200).json({ message: 'Player deleted successfully.' });
   } catch (err) {
-    console.error('Error en deletePlayer:', err);
-    res.status(500).json({ error: 'Error al eliminar el jugador.' });
+    console.error('Error in deletePlayer:', err);
+    res.status(500).json({ error: 'Error while deleting the player.' });
   }
 }
 
